@@ -62,7 +62,7 @@ class InitializerGenerator: NSObject, XCSourceEditorCommand {
     
     private func variables(in lines: [String]) -> [(String, String)] {
         let fullString = lines.joined()
-        let re = try! NSRegularExpression(pattern: "(\\s*((private|public|fileprivate|interval)\\s+)?(let|var))\\s+(?<name>\\w+)\\s?:\\s?(?<type>\\w+\\??)", options: [.caseInsensitive])
+        let re = try! NSRegularExpression(pattern: #"(\s*((private|public|fileprivate|interval)\s+)?(let|var))\s+(?<name>\w+)\s?:\s?(?<type>[\w<>\[\]]+\??)"#, options: [.caseInsensitive])
         var matched: [(String, String)] = []
        let matchingResults = re.matches(in: fullString, options: [.reportCompletion, .reportProgress], range: NSMakeRange(0, fullString.count))
         for match in matchingResults {
